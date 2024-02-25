@@ -1,0 +1,1 @@
+docker run --gpus all -it -v /home/ubuntu/models:/tmp/models -e SD_MODEL_CHECKPOINT="v1-5-pruned-emaonly.safetensors" -p:8000:8080 sd-web-ui:v1.7.0-20240225
