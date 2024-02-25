@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [ "$API_ONLY" = "true" ]; then
-    $NOWEBUI="--nowebui"
+    NOWEBUI="--nowebui"
 fi
 
 if [ ! -z "$CONFIG_FILE" ]; then
-    $SETTINGS="--ui-settings-file $CONFIG_FILE"
+    SETTINGS="--ui-settings-file $CONFIG_FILE"
 fi
 
 ACCELERATE=true exec python ./launch.py -f \
