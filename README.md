@@ -1,37 +1,38 @@
-🐣 Please follow me for new updates https://twitter.com/camenduru <br />
-🔥 Please join our discord server https://discord.gg/k5BwmmvJJU <br />
-🥳 Please join my patreon community https://patreon.com/camenduru <br />
+# Stable Diffusion Web UI Dockerfile
 
-`lite` has a stable WebUI and stable installed extensions. <br />
-`stable` has ControlNet, a stable WebUI, and stable installed extensions. <br />
-`nightly` has ControlNet, the latest WebUI, and daily installed extension updates. <br />
+## Usage
 
-## Stable Diffusion Web UI
-[https://github.com/AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+To build: 
+```bash
+docker build . -f Dockerfile.Stable -t sd-web-ui:latest
+```
 
-## Stable Diffusion Web UI Colab
-[https://github.com/camenduru/stable-diffusion-webui-colab](https://github.com/camenduru/stable-diffusion-webui-colab)
+To run: 
+```bash
+./run.sh
+```
 
-## Documentation
-[https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki).
+## What's included: 
+* CUDA 11.7.1
+* Torch 2.0.1
+* Stable Diffusion Web UI v1.7
+* ControlNet
+* Xformers 0.0.20
 
-## Installed Extensions
-[https://github.com/deforum-art/deforum-for-automatic1111-webui](https://github.com/deforum-art/deforum-for-automatic1111-webui) <br />
-[https://github.com/yfszzx/stable-diffusion-webui-images-browser](https://github.com/yfszzx/stable-diffusion-webui-images-browser) <br />
-[https://github.com/camenduru/stable-diffusion-webui-huggingface](https://github.com/camenduru/stable-diffusion-webui-huggingface) <br />
-[https://github.com/Vetchems/sd-civitai-browser](https://github.com/Vetchems/sd-civitai-browser) <br />
-[https://github.com/kohya-ss/sd-webui-additional-networks](https://github.com/kohya-ss/sd-webui-additional-networks) <br />
+## Link to projects
 
-## Installed Scripts
-[https://github.com/camenduru/stable-diffusion-webui-scripts/blob/main/run_n_times.py](https://github.com/camenduru/stable-diffusion-webui-scripts/blob/main/run_n_times.py) <br />
+### Stable Diffusion Web UI
+https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
-## Models License
-https://huggingface.co/spaces/CompVis/stable-diffusion-license
+### Documentation
+https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki
 
-## 🐳 Base Docker
+### ControlNet
+https://github.com/Mikubill/sd-webui-controlnet
+
+### 🐳 Base Docker
 https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.7.1/ubuntu2204/devel/cudnn8/Dockerfile <br />
 https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.7.1/ubuntu2204/base/Dockerfile
 
-## Xformers
-For the correct xformers wheel, please check https://github.com/camenduru/stable-diffusion-webui-colab/releases<br />
-or build with the same VM `pip wheel git+https://github.com/facebookresearch/xformers#egg=xformers` <br />
+### Xformers
+https://github.com/facebookresearch/xformers
