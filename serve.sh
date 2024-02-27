@@ -8,6 +8,10 @@ if [ ! -z "$CONFIG_FILE" ]; then
     SETTINGS="--ui-settings-file $CONFIG_FILE"
 fi
 
+if [ "$DYNAMIC_SD_MODEL" = "true" ]; then
+    DYNAMIC="--ui-debug-mode"
+fi
+
 folderArray=(stable-diffusion controlnet lora vae embeddings Codeformer GFPGAN ESRGAN BSRGAN RealESRGAN ScuNET SwinIR LDSR CLIP)
 for Name in ${folderArray[*]}
 do
@@ -17,8 +21,8 @@ done
 ACCELERATE=true exec python ./launch.py -f \
     $SETTINGS --api --api-log $NOWEBUI --no-gradio-queue \
     --skip-prepare-environment --no-hashing \
-    --no-download-sd-model \
-    --loglevel $LOGLEVEL \
+    --no-download-sd-model $DYNAMIC \
+    --loglevel $LOGLEVEL --log-startup \
     --listen --port $PORT --xformers \
     --ckpt /tmp/models/stable-diffusion/$SD_MODEL_CHECKPOINT \
     --ckpt-dir /tmp/models/stable-diffusion \
