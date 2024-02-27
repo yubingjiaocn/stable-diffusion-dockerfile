@@ -8,6 +8,12 @@ if [ ! -z "$CONFIG_FILE" ]; then
     SETTINGS="--ui-settings-file $CONFIG_FILE"
 fi
 
+folderArray=(stable-diffusion controlnet lora vae embeddings Codeformer GFPGAN ESRGAN BSRGAN RealESRGAN ScuNET SwinIR LDSR CLIP)
+for Name in ${folderArray[*]}
+do
+  mkdir -p /tmp/models/$Name
+done
+
 ACCELERATE=true exec python ./launch.py -f \
     $SETTINGS --api --api-log $NOWEBUI --no-gradio-queue \
     --skip-prepare-environment --no-hashing \
