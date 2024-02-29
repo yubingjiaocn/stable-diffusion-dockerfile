@@ -12,7 +12,7 @@ WORKDIR /opt/ml/code
 USER user
 
 RUN pip3 install --upgrade pip
-RUN pip install numexpr
+RUN pip install numexpr httpx==0.24.1
 RUN pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 triton==2.0.0 --index-url https://download.pytorch.org/whl/cu118
 
 RUN git clone -b v1.7.0 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
