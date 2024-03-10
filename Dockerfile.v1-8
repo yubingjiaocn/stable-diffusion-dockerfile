@@ -33,7 +33,7 @@ ENV CONFIG_FILE=""
 ENV EXTRA_CMD_ARG=""
 ENV LOGLEVEL="INFO"
 
-COPY serve.sh /opt/ml/code/
+COPY serve.sh config.json /opt/ml/code/
 
 EXPOSE ${PORT}
 
