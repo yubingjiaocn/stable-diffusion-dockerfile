@@ -11,14 +11,9 @@ fi
 if [ "$DYNAMIC_SD_MODEL" = "true" ]; then
     MODEL="--ui-debug-mode"
 else
-    MODEL="--ckpt /tmp/models/stable-diffusion/$SD_MODEL_CHECKPOINT"
+    MODEL="--ckpt /opt/ml/code/models/Stable-diffusion/$SD_MODEL_CHECKPOINT"
 fi
 
-folderArray=(stable-diffusion controlnet lora vae embeddings Codeformer GFPGAN ESRGAN BSRGAN RealESRGAN ScuNET SwinIR LDSR CLIP)
-for Name in ${folderArray[*]}
-do
-  mkdir -p /tmp/models/$Name
-done
 
 ACCELERATE=true exec python ./launch.py -f \
     $SETTINGS --api --api-log $NOWEBUI --no-gradio-queue \
@@ -26,17 +21,4 @@ ACCELERATE=true exec python ./launch.py -f \
     --no-download-sd-model \
     --loglevel $LOGLEVEL --log-startup \
     --listen --port $PORT --xformers \
-    $MODEL --ckpt-dir /tmp/models/stable-diffusion \
-    --controlnet-dir /tmp/models/controlnet \
-    --lora-dir /tmp/models/lora \
-    --vae-dir /tmp/models/vae \
-    --embeddings-dir /tmp/models/embeddings \
-    --codeformer-models-path /tmp/models/Codeformer \
-    --gfpgan-models-path /tmp/models/GFPGAN \
-    --esrgan-models-path /tmp/models/ESRGAN \
-    --bsrgan-models-path /tmp/models/BSRGAN \
-    --realesrgan-models-path /tmp/models/RealESRGAN \
-    --scunet-models-path /tmp/models/ScuNET \
-    --swinir-models-path /tmp/models/SwinIR \
-    --ldsr-models-path /tmp/models/LDSR \
-    --clip-models-path /tmp/models/CLIP $EXTRA_CMD_ARG
+    $MODEL $EXTRA_CMD_ARG

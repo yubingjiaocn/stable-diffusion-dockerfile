@@ -7,7 +7,6 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y libgl1 libglib
 
 RUN adduser --disabled-password --gecos '' user
 RUN mkdir -p /opt/ml/code  && chown -R user:user /opt/ml/code
-RUN mkdir -p /tmp/models  && chown -R user:user /tmp/models
 WORKDIR /opt/ml/code
 USER user
 
@@ -17,7 +16,7 @@ RUN pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 triton==2.1.0
 
 RUN git clone -b v1.8.0 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet /opt/ml/code/extensions/sd-webui-controlnet
-RUN git clone https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
+# RUN git clone https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
 RUN git clone https://github.com/huchenlei/sd-webui-api-payload-display /opt/ml/code/extensions/sd-webui-api-payload-display
 
 WORKDIR /opt/ml/code/
