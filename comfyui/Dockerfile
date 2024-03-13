@@ -3,9 +3,9 @@ FROM nvidia/cuda:12.3.2-runtime-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    python-is-python3 python3-pip python3.10-dev git wget \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y python-is-python3 python3-pip python3.10-dev git wget && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create and switch to a new user
 RUN adduser --disabled-password --gecos '' -u 1000 user
@@ -17,7 +17,8 @@ RUN pip3 install --upgrade pip
 RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 xformers==0.0.24 --index-url https://download.pytorch.org/whl/cu121
 
 # Clone ComfyUI directly into /home/user/opt/ComfyUI
-RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ml/code/
+RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ml/code/ && \
+    pip install -r requirements.txt
 
 # Clone ComfyUI-Manager and install its requirements
 RUN mkdir -p custom_nodes/ComfyUI-Manager && \
