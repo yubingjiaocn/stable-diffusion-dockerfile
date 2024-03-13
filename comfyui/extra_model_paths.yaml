@@ -1,0 +1,16 @@
+comfyui:
+  base_path: /opt/ml/code/
+  checkpoints: models/Stable-diffusion
+  configs: models/Stable-diffusion
+  vae: models/VAE
+  loras: |
+    models/Lora
+    models/LyCORIS
+  upscale_models: |
+    models/ESRGAN
+    models/RealESRGAN
+    models/SwinIR
+  embeddings: embeddings
+  hypernetworks: models/hypernetworks
+  controlnet: models/ControlNet
+  custom_nodes: custom_nodes/
