@@ -20,6 +20,9 @@ RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 xformers==0.0
 RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ml/code/ && \
     pip install -r requirements.txt
 
+# Hack to disable mmap
+RUN sed -i 's/sd = safetensors.torch.load_file(ckpt, device=device.type)/sd = safetensors.torch.load(open(ckpt, '"'rb'"').read())/g' /opt/ml/code/comfy/utils.py
+
 # Clone ComfyUI-Manager and install its requirements
 RUN mkdir -p custom_nodes/ComfyUI-Manager && \
     git clone --depth 1 https://github.com/ltdrdata/ComfyUI-Manager /opt/ml/code/custom_nodes/ComfyUI-Manager && \
