@@ -35,6 +35,12 @@ ENV LOGLEVEL="INFO"
 
 COPY serve.sh config.json /opt/ml/code/
 
+# Temporary switch to root to change owner and provide permission
+USER root
+RUN chown user:user /opt/ml/code/config.json && \
+    chmod 777 /opt/ml/code/config.json
+USER user
+
 EXPOSE ${PORT}
 
 ENTRYPOINT ["/bin/bash"]
