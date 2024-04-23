@@ -16,8 +16,9 @@ RUN pip install numexpr httpx==0.24.1
 RUN pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 triton==2.0.0 --index-url https://download.pytorch.org/whl/cu118
 
 RUN git clone -b v1.7.0 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
+RUN mkdir -p /opt/ml/code/openai/ && git lfs clone https://huggingface.co/openai/clip-vit-large-patch14 /opt/ml/code/openai/clip-vit-large-patch14
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet /opt/ml/code/extensions/sd-webui-controlnet
-RUN git clone -b v1.13.1 --depth 1 https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
+# RUN git clone -b v1.13.1 --depth 1 https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
 RUN git clone https://github.com/huchenlei/sd-webui-api-payload-display /opt/ml/code/extensions/sd-webui-api-payload-display
 
 WORKDIR /opt/ml/code/
