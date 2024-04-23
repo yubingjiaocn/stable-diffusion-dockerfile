@@ -5,12 +5,10 @@ if [ "$API_ONLY" = "true" ]; then
 fi
 
 if [ ! -z "$CONFIG_FILE" ]; then
-    SETTINGS="--ui-settings-file $CONFIG_FILE"
+    cp -f $CONFIG_FILE /opt/ml/code/config.json
 fi
 
-if [ "$DYNAMIC_SD_MODEL" = "true" ]; then
-    MODEL="--ui-debug-mode"
-else
+if [ ! "$DYNAMIC_SD_MODEL" = "true" ]; then
     MODEL="--ckpt /opt/ml/code/models/Stable-diffusion/$SD_MODEL_CHECKPOINT"
 fi
 
