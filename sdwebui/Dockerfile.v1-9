@@ -15,9 +15,10 @@ RUN pip install numexpr insightface
 RUN pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 triton==2.1.0 --index-url https://download.pytorch.org/whl/cu121
 RUN pip install xformers==0.0.23.post1 --index-url https://download.pytorch.org/whl/cu121
 
-RUN git clone -b v1.8.0 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
+RUN git clone -b v1.9.3 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
 RUN mkdir -p /opt/ml/code/openai/ && git lfs clone https://huggingface.co/openai/clip-vit-large-patch14 /opt/ml/code/openai/clip-vit-large-patch14
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet /opt/ml/code/extensions/sd-webui-controlnet
+# RUN git clone https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
 RUN git clone https://github.com/huchenlei/sd-webui-api-payload-display /opt/ml/code/extensions/sd-webui-api-payload-display
 
 WORKDIR /opt/ml/code/
@@ -32,6 +33,12 @@ ENV EXTRA_CMD_ARG=""
 ENV LOGLEVEL="INFO"
 
 COPY serve.sh config.json /opt/ml/code/
+
+# Temporary switch to root to change owner and provide permission
+USER root
+RUN chown user:user /opt/ml/code/config.json && \
+    chmod 777 /opt/ml/code/config.json
+USER user
 
 EXPOSE ${PORT}
 

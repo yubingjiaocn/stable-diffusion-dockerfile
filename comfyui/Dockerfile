@@ -16,7 +16,7 @@ USER user
 RUN pip3 install --upgrade pip
 RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 xformers==0.0.24 --index-url https://download.pytorch.org/whl/cu121
 
-# Clone ComfyUI directly into /home/user/opt/ComfyUI
+# Clone ComfyUI
 RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ml/code/ && \
     pip install -r requirements.txt
 
