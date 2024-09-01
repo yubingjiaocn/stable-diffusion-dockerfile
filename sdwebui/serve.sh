@@ -10,6 +10,8 @@ fi
 
 if [ ! "$DYNAMIC_SD_MODEL" = "true" ]; then
     MODEL="--ckpt /opt/ml/code/models/Stable-diffusion/$SD_MODEL_CHECKPOINT"
+else
+    MODEL="--skip-load-model-at-start"
 fi
 
 
