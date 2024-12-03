@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.3.2-runtime-ubuntu22.04
+FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -14,10 +14,10 @@ WORKDIR /opt/ml/code
 USER user
 
 RUN pip3 install --upgrade pip
-RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 xformers==0.0.24 --index-url https://download.pytorch.org/whl/cu121
+RUN pip3 install torch==2.5.0 torchvision==0.20.0 torchaudio==2.5.0 xformers==0.0.28.post2 --index-url https://download.pytorch.org/whl/cu121
 
 # Clone ComfyUI
-RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI.git --branch v0.1.3 /opt/ml/code/ && \
+RUN git clone --depth 1 https://github.com/comfyanonymous/ComfyUI.git --branch v0.3.6 /opt/ml/code/ && \
     pip install -r requirements.txt
 
 # Hack to disable mmap
