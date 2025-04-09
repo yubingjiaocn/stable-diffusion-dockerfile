@@ -1,25 +1,34 @@
 # Dockerfile.Stable
 
-FROM nvidia/cuda:12.1.1-base-ubuntu22.04
-ENV DEBIAN_FRONTEND noninteractive
+FROM nvidia/cuda:12.4.1-base-ubuntu22.04
+ENV DEBIAN_FRONTEND=noninteractive
+ENV UV_COMPILE_BYTECODE=1
 
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y libgl1 libglib2.0-0 wget git git-lfs python3-pip python-is-python3 libcairo2-dev pkg-config python3-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-password --gecos '' user
 RUN mkdir -p /opt/ml/code  && chown -R user:user /opt/ml/code
 WORKDIR /opt/ml/code
+
+RUN pip3 install uv
+
 USER user
 
-RUN pip3 install --upgrade pip
-RUN pip install numexpr insightface
-RUN pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 triton==2.1.0 --index-url https://download.pytorch.org/whl/cu121
-RUN pip install xformers==0.0.23.post1 --index-url https://download.pytorch.org/whl/cu121
-
 RUN git clone -b v1.9.4 --depth 1 https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /opt/ml/code/
-RUN mkdir -p /opt/ml/code/openai/ && git lfs clone https://huggingface.co/openai/clip-vit-large-patch14 /opt/ml/code/openai/clip-vit-large-patch14
-RUN git clone https://github.com/Mikubill/sd-webui-controlnet /opt/ml/code/extensions/sd-webui-controlnet
+
+RUN uv venv /opt/ml/code/.venv
+ENV VIRTUAL_ENV=/opt/ml/code/.venv
+ENV PATH="/opt/ml/code/.venv/bin:$PATH"
+
+# Use uv instead of pip for package installations
+RUN uv pip install pip numexpr insightface torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 triton xformers --no-cache --extra-index-url https://download.pytorch.org/whl/cu124
+
+RUN uv pip install -r requirements.txt --no-cache --extra-index-url https://download.pytorch.org/whl/cu124 --index-strategy unsafe-best-match
+
+RUN mkdir -p /opt/ml/code/openai/ && git clone --depth 1 https://huggingface.co/openai/clip-vit-large-patch14 /opt/ml/code/openai/clip-vit-large-patch14
+RUN git clone --depth 1 https://github.com/Mikubill/sd-webui-controlnet /opt/ml/code/extensions/sd-webui-controlnet
 # RUN git clone https://github.com/continue-revolution/sd-webui-animatediff /opt/ml/code/extensions/sd-webui-animatediff
-RUN git clone https://github.com/huchenlei/sd-webui-api-payload-display /opt/ml/code/extensions/sd-webui-api-payload-display
+# RUN git clone https://github.com/huchenlei/sd-webui-api-payload-display /opt/ml/code/extensions/sd-webui-api-payload-display
 
 WORKDIR /opt/ml/code/
 RUN python launch.py --skip-torch-cuda-test -f --exit

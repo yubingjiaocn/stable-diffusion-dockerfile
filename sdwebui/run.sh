@@ -1,5 +1,6 @@
 docker run --gpus all -it \
--v /home/ubuntu/models:/opt/ml/code/models \
--v /home/ubuntu/models/animatediff-model:/opt/ml/code/extensions/sd-webui-animatediff/model/ \
--e SD_MODEL_CHECKPOINT="v1-5-pruned-emaonly.safetensors" \
--p:8000:8080 sd-web-ui:v1.8.0-20240312
+-v /home/ubuntu/models/sd:/opt/ml/code/models \
+-e DYNAMIC_SD_MODEL="true" \
+-p:8000:8080 public.ecr.aws/bingjiao/sd-on-eks/sdwebui:latest
+
+# -e SD_MODEL_CHECKPOINT="AnythingXL_inkBase.safetensors" \
